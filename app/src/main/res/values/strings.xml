@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DouBanMvp</string>
+    <string name="error_info">出现异常啦</string>
+</resources>
