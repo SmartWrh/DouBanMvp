@@ -2,7 +2,6 @@ package com.wrh.mvp.doubanmvp.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,21 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.wrh.mvp.doubanmvp.R;
 import com.wrh.mvp.doubanmvp.common.ErrorLevel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by user on 2016/6/2.
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends RxAppCompatActivity {
 
     private static final String TAG_CREATE = "onCreate";
 
 
-    private List<BasePresenter> mBasePresenters = new ArrayList<>();
 
     private Toolbar mToolbar;
 

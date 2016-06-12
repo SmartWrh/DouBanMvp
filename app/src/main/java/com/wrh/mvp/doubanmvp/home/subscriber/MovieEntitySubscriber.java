@@ -23,12 +23,13 @@ public class MovieEntitySubscriber extends Subscriber<MovieEntity> {
 
     @Override
     public void onError(Throwable e) {
-        Logger.d("Error:" + e.getMessage());
         mPresenter.errorTask(e.getMessage());
     }
 
+
     @Override
     public void onNext(MovieEntity movieEntity) {
+        Logger.d("onNext");
         mPresenter.setRecyclerViewData(movieEntity);
     }
 }

@@ -1,5 +1,7 @@
 package com.wrh.mvp.doubanmvp.home.http;
 
+import com.trello.rxlifecycle.ActivityEvent;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.wrh.mvp.doubanmvp.home.entity.MovieEntity;
 
 import retrofit2.Retrofit;
@@ -36,8 +38,8 @@ public class HttpMethods {
         return SingletonHolder.INSTANCE;
     }
 
-    public void getTopMovie(Subscriber<MovieEntity> subscriber, int start, int count) {
-        mMovieService.getTopMovie(start, count)
+    public void getTopMovie(RxAppCompatActivity activity, Subscriber<MovieEntity> subscriber, int start, int count) {
+        mMovieService.getTopMovie(start, count).compose(activity.<MovieEntity>bindUntilEvent(ActivityEvent.STOP))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

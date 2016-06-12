@@ -6,7 +6,5 @@ package com.wrh.mvp.doubanmvp.common.base;
 public interface BasePresenter {
     void loadTask();
 
-    void stopTask();
-
     void errorTask(String message);
 }

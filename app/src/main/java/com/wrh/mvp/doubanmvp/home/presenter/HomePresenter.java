@@ -4,16 +4,15 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 
-import com.wrh.mvp.doubanmvp.common.base.BaseConstant;
 import com.wrh.mvp.doubanmvp.common.ErrorLevel;
 import com.wrh.mvp.doubanmvp.common.RefreshRunnable;
+import com.wrh.mvp.doubanmvp.common.base.BaseConstant;
+import com.wrh.mvp.doubanmvp.home.MainActivity;
 import com.wrh.mvp.doubanmvp.home.entity.MovieEntity;
 import com.wrh.mvp.doubanmvp.home.http.HttpMethods;
 import com.wrh.mvp.doubanmvp.home.subscriber.MovieEntitySubscriber;
 import com.wrh.mvp.recyclerviewlayout.base.RecyclerViewLayout;
 import com.wrh.mvp.recyclerviewlayout.base.recyclerviewlayout.AdvanceAdapter;
-
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by user on 2016/6/2.
@@ -24,19 +23,20 @@ public class HomePresenter implements HomeContract.Presenter, SwipeRefreshLayout
 
     private final HomeContract.View mView;
 
+    private MainActivity mActivity;
+
     private RecyclerViewLayout mBaseRecyclerView;
 
     private RecyclerViewLayout.Adapter mAdapter;
 
     private HttpMethods mHttpMethods;
 
-    private CompositeSubscription mCompositeSubscription;
 
     private MovieEntitySubscriber mEntitySubscriber;
 
-    public HomePresenter(HomeContract.View view) {
+    public HomePresenter(HomeContract.View view, MainActivity activity) {
         mView = view;
-        mCompositeSubscription = new CompositeSubscription();
+        mActivity = activity;
         mHttpMethods = HttpMethods.getInstance();
     }
 
@@ -45,12 +45,6 @@ public class HomePresenter implements HomeContract.Presenter, SwipeRefreshLayout
         openTask();
     }
 
-    @Override
-    public void stopTask() {
-        if (mCompositeSubscription != null) {
-            mCompositeSubscription.unsubscribe();
-        }
-    }
 
     @Override
     public void errorTask(String message) {
@@ -61,15 +55,11 @@ public class HomePresenter implements HomeContract.Presenter, SwipeRefreshLayout
         if (mView == null) {
             return;
         }
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeSubscription();
-        }
         if (mEntitySubscriber != null && !mEntitySubscriber.isUnsubscribed()) {
             mEntitySubscriber.unsubscribe();
         }
         mEntitySubscriber = new MovieEntitySubscriber(this);
-        mHttpMethods.getTopMovie(mEntitySubscriber, start, BaseConstant.count);
-        mCompositeSubscription.add(mEntitySubscriber);
+        mHttpMethods.getTopMovie(mActivity, mEntitySubscriber, start, BaseConstant.count);
     }
 
     @Override
