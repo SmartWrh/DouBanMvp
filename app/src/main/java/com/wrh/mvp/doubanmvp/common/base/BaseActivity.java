@@ -32,7 +32,7 @@ public class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Logger.d(TAG_CREATE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+//        setContentView(R.layout.activity_base);
     }
 
     public void setContentWithToolbarView(int layoutResID) {

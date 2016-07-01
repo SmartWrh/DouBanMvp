@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.orhanobut.logger.Logger;
 import com.wrh.mvp.doubanmvp.R;
 
 /**
@@ -52,7 +51,6 @@ public class LabelView extends View {
     private void init() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(mColor);
         mPaint.setStyle(Paint.Style.FILL);
         mTxtPaint = new Paint();
         mTxtPaint.setColor(mTxtColor);
@@ -63,6 +61,10 @@ public class LabelView extends View {
 
     public void setText(String text) {
         this.mText = text;
+    }
+
+    public void setColor(int color) {
+        mColor = color;
     }
 
     @Override
@@ -77,6 +79,7 @@ public class LabelView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mPaint.setColor(mColor);
         Path path = new Path();
         path.moveTo(mWidth, mHeight);
         path.lineTo(mWidth, mHeight - mTriangleHeight);

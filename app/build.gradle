@@ -51,14 +51,13 @@ dependencies {
     compile 'com.trello:rxlifecycle:0.6.1'
     compile 'com.trello:rxlifecycle-components:0.6.1'
     compile project(':recyclerviewlayout')
-
-
-//    // Android JUnit Runner
-//    androidTestCompile 'com.android.support.test:runner:0.5'
-//    // JUnit4 Rules
-//    androidTestCompile 'com.android.support.test:rules:0.5'
-//    // Espresso core
-//    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    //    // Android JUnit Runner
+    //    androidTestCompile 'com.android.support.test:runner:0.5'
+    //    // JUnit4 Rules
+    //    androidTestCompile 'com.android.support.test:rules:0.5'
+    //    // Espresso core
+    //    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     // Android JUnit Runner
-
+    compile 'com.android.support:design:23.4.0'
 }

@@ -1,11 +1,15 @@
 package com.wrh.mvp.doubanmvp.home.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by user on 2016/6/2.
  */
-public class MovieEntity {
+public class MovieEntity implements Parcelable {
 
     /**
      * count : 1
@@ -76,7 +80,7 @@ public class MovieEntity {
         this.subjects = subjects;
     }
 
-    public static class SubjectsBean {
+    public static class SubjectsBean implements Parcelable {
         /**
          * max : 10
          * average : 9.6
@@ -213,7 +217,7 @@ public class MovieEntity {
             this.directors = directors;
         }
 
-        public static class RatingBean {
+        public static class RatingBean implements Parcelable {
             private int max;
             private double average;
             private String stars;
@@ -250,9 +254,44 @@ public class MovieEntity {
             public void setMin(int min) {
                 this.min = min;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.max);
+                dest.writeDouble(this.average);
+                dest.writeString(this.stars);
+                dest.writeInt(this.min);
+            }
+
+            public RatingBean() {
+            }
+
+            protected RatingBean(Parcel in) {
+                this.max = in.readInt();
+                this.average = in.readDouble();
+                this.stars = in.readString();
+                this.min = in.readInt();
+            }
+
+            public static final Creator<RatingBean> CREATOR = new Creator<RatingBean>() {
+                @Override
+                public RatingBean createFromParcel(Parcel source) {
+                    return new RatingBean(source);
+                }
+
+                @Override
+                public RatingBean[] newArray(int size) {
+                    return new RatingBean[size];
+                }
+            };
         }
 
-        public static class ImagesBean {
+        public static class ImagesBean implements Parcelable {
             private String small;
             private String large;
             private String medium;
@@ -280,9 +319,42 @@ public class MovieEntity {
             public void setMedium(String medium) {
                 this.medium = medium;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.small);
+                dest.writeString(this.large);
+                dest.writeString(this.medium);
+            }
+
+            public ImagesBean() {
+            }
+
+            protected ImagesBean(Parcel in) {
+                this.small = in.readString();
+                this.large = in.readString();
+                this.medium = in.readString();
+            }
+
+            public static final Creator<ImagesBean> CREATOR = new Creator<ImagesBean>() {
+                @Override
+                public ImagesBean createFromParcel(Parcel source) {
+                    return new ImagesBean(source);
+                }
+
+                @Override
+                public ImagesBean[] newArray(int size) {
+                    return new ImagesBean[size];
+                }
+            };
         }
 
-        public static class CastsBean {
+        public static class CastsBean implements Parcelable {
             private String alt;
             /**
              * small : https://img3.doubanio.com/img/celebrity/small/17525.jpg
@@ -326,7 +398,7 @@ public class MovieEntity {
                 this.id = id;
             }
 
-            public static class AvatarsBean {
+            public static class AvatarsBean implements Parcelable {
                 private String small;
                 private String large;
                 private String medium;
@@ -354,10 +426,78 @@ public class MovieEntity {
                 public void setMedium(String medium) {
                     this.medium = medium;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.small);
+                    dest.writeString(this.large);
+                    dest.writeString(this.medium);
+                }
+
+                public AvatarsBean() {
+                }
+
+                protected AvatarsBean(Parcel in) {
+                    this.small = in.readString();
+                    this.large = in.readString();
+                    this.medium = in.readString();
+                }
+
+                public static final Creator<AvatarsBean> CREATOR = new Creator<AvatarsBean>() {
+                    @Override
+                    public AvatarsBean createFromParcel(Parcel source) {
+                        return new AvatarsBean(source);
+                    }
+
+                    @Override
+                    public AvatarsBean[] newArray(int size) {
+                        return new AvatarsBean[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.alt);
+                dest.writeParcelable(this.avatars, flags);
+                dest.writeString(this.name);
+                dest.writeString(this.id);
+            }
+
+            public CastsBean() {
+            }
+
+            protected CastsBean(Parcel in) {
+                this.alt = in.readString();
+                this.avatars = in.readParcelable(AvatarsBean.class.getClassLoader());
+                this.name = in.readString();
+                this.id = in.readString();
+            }
+
+            public static final Creator<CastsBean> CREATOR = new Creator<CastsBean>() {
+                @Override
+                public CastsBean createFromParcel(Parcel source) {
+                    return new CastsBean(source);
+                }
+
+                @Override
+                public CastsBean[] newArray(int size) {
+                    return new CastsBean[size];
+                }
+            };
         }
 
-        public static class DirectorsBean {
+        public static class DirectorsBean implements Parcelable {
             private String alt;
             /**
              * small : https://img3.doubanio.com/img/celebrity/small/230.jpg
@@ -401,7 +541,7 @@ public class MovieEntity {
                 this.id = id;
             }
 
-            public static class AvatarsBean {
+            public static class AvatarsBean implements Parcelable {
                 private String small;
                 private String large;
                 private String medium;
@@ -429,7 +569,166 @@ public class MovieEntity {
                 public void setMedium(String medium) {
                     this.medium = medium;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.small);
+                    dest.writeString(this.large);
+                    dest.writeString(this.medium);
+                }
+
+                public AvatarsBean() {
+                }
+
+                protected AvatarsBean(Parcel in) {
+                    this.small = in.readString();
+                    this.large = in.readString();
+                    this.medium = in.readString();
+                }
+
+                public static final Creator<AvatarsBean> CREATOR = new Creator<AvatarsBean>() {
+                    @Override
+                    public AvatarsBean createFromParcel(Parcel source) {
+                        return new AvatarsBean(source);
+                    }
+
+                    @Override
+                    public AvatarsBean[] newArray(int size) {
+                        return new AvatarsBean[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.alt);
+                dest.writeParcelable(this.avatars, flags);
+                dest.writeString(this.name);
+                dest.writeString(this.id);
+            }
+
+            public DirectorsBean() {
+            }
+
+            protected DirectorsBean(Parcel in) {
+                this.alt = in.readString();
+                this.avatars = in.readParcelable(AvatarsBean.class.getClassLoader());
+                this.name = in.readString();
+                this.id = in.readString();
+            }
+
+            public static final Creator<DirectorsBean> CREATOR = new Creator<DirectorsBean>() {
+                @Override
+                public DirectorsBean createFromParcel(Parcel source) {
+                    return new DirectorsBean(source);
+                }
+
+                @Override
+                public DirectorsBean[] newArray(int size) {
+                    return new DirectorsBean[size];
+                }
+            };
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeParcelable(this.rating, flags);
+            dest.writeString(this.title);
+            dest.writeInt(this.collect_count);
+            dest.writeString(this.original_title);
+            dest.writeString(this.subtype);
+            dest.writeString(this.year);
+            dest.writeParcelable(this.images, flags);
+            dest.writeString(this.alt);
+            dest.writeString(this.id);
+            dest.writeStringList(this.genres);
+            dest.writeList(this.casts);
+            dest.writeList(this.directors);
+        }
+
+        public SubjectsBean() {
+        }
+
+        protected SubjectsBean(Parcel in) {
+            this.rating = in.readParcelable(RatingBean.class.getClassLoader());
+            this.title = in.readString();
+            this.collect_count = in.readInt();
+            this.original_title = in.readString();
+            this.subtype = in.readString();
+            this.year = in.readString();
+            this.images = in.readParcelable(ImagesBean.class.getClassLoader());
+            this.alt = in.readString();
+            this.id = in.readString();
+            this.genres = in.createStringArrayList();
+            this.casts = new ArrayList<CastsBean>();
+            in.readList(this.casts, CastsBean.class.getClassLoader());
+            this.directors = new ArrayList<DirectorsBean>();
+            in.readList(this.directors, DirectorsBean.class.getClassLoader());
+        }
+
+        public static final Creator<SubjectsBean> CREATOR = new Creator<SubjectsBean>() {
+            @Override
+            public SubjectsBean createFromParcel(Parcel source) {
+                return new SubjectsBean(source);
+            }
+
+            @Override
+            public SubjectsBean[] newArray(int size) {
+                return new SubjectsBean[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.count);
+        dest.writeInt(this.start);
+        dest.writeInt(this.total);
+        dest.writeString(this.title);
+        dest.writeList(this.subjects);
+    }
+
+    public MovieEntity() {
+    }
+
+    protected MovieEntity(Parcel in) {
+        this.count = in.readInt();
+        this.start = in.readInt();
+        this.total = in.readInt();
+        this.title = in.readString();
+        this.subjects = new ArrayList<SubjectsBean>();
+        in.readList(this.subjects, SubjectsBean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<MovieEntity> CREATOR = new Parcelable.Creator<MovieEntity>() {
+        @Override
+        public MovieEntity createFromParcel(Parcel source) {
+            return new MovieEntity(source);
+        }
+
+        @Override
+        public MovieEntity[] newArray(int size) {
+            return new MovieEntity[size];
+        }
+    };
 }

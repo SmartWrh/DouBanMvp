@@ -29,7 +29,6 @@ public class MovieEntitySubscriber extends Subscriber<MovieEntity> {
 
     @Override
     public void onNext(MovieEntity movieEntity) {
-        Logger.d("onNext");
         mPresenter.setRecyclerViewData(movieEntity);
     }
 }

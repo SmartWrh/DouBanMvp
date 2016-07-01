@@ -5,6 +5,6 @@ import com.wrh.mvp.doubanmvp.common.ErrorLevel;
 /**
  * Created by user on 2016/6/2.
  */
-public interface BaseView<T> {
+public interface BaseView{
     void errorView(ErrorLevel level, String message);
 }

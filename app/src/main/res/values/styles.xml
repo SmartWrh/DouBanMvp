@@ -9,4 +9,6 @@
         <item name="android:listDivider">@drawable/divider_item</item>
     </style>
 
+    <style name="theme" parent="AppTheme"></style>
+
 </resources>

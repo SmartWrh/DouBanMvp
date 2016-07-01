@@ -1,12 +1,15 @@
 package com.wrh.mvp.doubanmvp.home.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.wrh.mvp.doubanmvp.common.ErrorLevel;
 import com.wrh.mvp.doubanmvp.common.RefreshRunnable;
 import com.wrh.mvp.doubanmvp.common.base.BaseConstant;
+import com.wrh.mvp.doubanmvp.detail.MovieDetailActivity;
 import com.wrh.mvp.doubanmvp.home.MainActivity;
 import com.wrh.mvp.doubanmvp.home.entity.MovieEntity;
 import com.wrh.mvp.doubanmvp.home.http.HttpMethods;
@@ -31,11 +34,10 @@ public class HomePresenter implements HomeContract.Presenter, SwipeRefreshLayout
 
     private HttpMethods mHttpMethods;
 
-
     private MovieEntitySubscriber mEntitySubscriber;
 
-    public HomePresenter(HomeContract.View view, MainActivity activity) {
-        mView = view;
+    public HomePresenter(MainActivity activity) {
+        mView = activity;
         mActivity = activity;
         mHttpMethods = HttpMethods.getInstance();
     }
@@ -97,6 +99,12 @@ public class HomePresenter implements HomeContract.Presenter, SwipeRefreshLayout
         }
     }
 
+    @Override
+    public void toMovieDetail(RecyclerView.ViewHolder holder, MovieEntity.SubjectsBean subjectsBean) {
+        Intent intent = new Intent(mActivity, MovieDetailActivity.class);
+        intent.putExtra(MovieDetailActivity.MOVIE_ENTITY, subjectsBean);
+        mActivity.startActivity(intent);
+    }
 
     @Override
     public void loadMore() {
